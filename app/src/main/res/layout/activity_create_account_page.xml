@@ -14,7 +14,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
-        tools:srcCompat="@drawable/ic_baseline_account_circle_24" />
+        tools:srcCompat="@drawable/ic_account_circle_black_24dp" />
 
     <TextView
         android:layout_width="match_parent"

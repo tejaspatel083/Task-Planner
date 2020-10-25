@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreateAccountPage"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".HomePage"></activity>
+        <activity android:name=".CreateAccountPage" />
+        <activity android:name=".LoginPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
