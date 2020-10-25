@@ -9,11 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ForgotPasswordPage"></activity>
-        <activity android:name=".TaskDetails" />
-        <activity android:name=".AddTaskPage" />
-        <activity android:name=".HomePage" />
-        <activity android:name=".CreateAccountPage" />
+        <activity android:name=".ForgotPasswordPage"
+            android:label="Forgot Password"></activity>
+        <activity android:name=".TaskDetails"
+            android:label="Task Details"/>
+        <activity android:name=".AddTaskPage"
+            android:label="Add Task"/>
+        <activity android:name=".HomePage"
+            android:label="Home Page"/>
+        <activity android:name=".CreateAccountPage"
+            android:label="Create Account"/>
         <activity android:name=".LoginPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

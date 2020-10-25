@@ -13,7 +13,7 @@
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
-        android:src="@drawable/logo"/>
+        android:src="@drawable/logo2"/>
 
     <EditText
         android:id="@+id/MainEmail"
