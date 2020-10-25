@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyTaskListPage"></activity>
         <activity android:name=".TaskDetails" />
         <activity android:name=".AddTaskPage" />
         <activity android:name=".HomePage" />

@@ -30,6 +30,7 @@
         android:layout_marginLeft="85dp"
         android:paddingLeft="5dp"
         android:textSize="20dp"
+        android:textColor="#18212A"
         />
 
     <TextView
@@ -53,6 +54,7 @@
         android:layout_marginTop="105dp"
         android:layout_marginLeft="85dp"
         android:paddingLeft="5dp"
+        android:textColor="#18212A"
         android:textSize="20dp"/>
 
     <TextView
@@ -73,6 +75,7 @@
         android:layout_height="300dp"
         android:background="#ffffff"
         android:id="@+id/noteScroll"
+        android:textColor="#18212A"
         android:layout_marginTop="145dp"
         android:layout_marginLeft="85dp"
         android:gravity="top"
