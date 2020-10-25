@@ -6,15 +6,15 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
 
-public class AddTaskPage extends AppCompatActivity {
+public class TaskDetails extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_task_page);
+        setContentView(R.layout.activity_task_details);
 
-        TextView NoteScroll = (TextView)findViewById(R.id.noteEditText);
+        TextView noteScrollable = (TextView)findViewById(R.id.noteScroll);
 
-        NoteScroll.setMovementMethod(new ScrollingMovementMethod());
+        noteScrollable.setMovementMethod(new ScrollingMovementMethod());
     }
 }
