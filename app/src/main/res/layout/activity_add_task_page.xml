@@ -23,10 +23,10 @@
     <TextView
         android:layout_width="250dp"
         android:layout_height="28dp"
-        android:background="#FFFFFF"
+        android:background="@drawable/text_background"
         android:textColor="#18212A"
         android:id="@+id/dateTextView"
-        android:paddingLeft="5dp"
+        android:paddingLeft="10dp"
         android:textSize="20dp"
         android:layout_marginTop="65dp"
         android:layout_marginLeft="85dp"/>
@@ -47,14 +47,14 @@
     <EditText
         android:layout_width="250dp"
         android:layout_height="28dp"
-        android:background="#FFFFFF"
+        android:background="@drawable/text_background"
         android:textColor="#18212A"
         android:id="@+id/titleEditText"
-        android:paddingLeft="5dp"
+        android:paddingLeft="10dp"
         android:textSize="20dp"
         android:layout_marginTop="105dp"
         android:layout_marginLeft="85dp"
-        android:hint=" Enter Your Title"/>
+        android:hint="Enter Your Title"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -72,13 +72,13 @@
     <EditText
         android:layout_width="250dp"
         android:layout_height="240dp"
-        android:background="#ffffff"
+        android:background="@drawable/text_background"
         android:id="@+id/noteEditText"
         android:layout_marginTop="145dp"
         android:layout_marginLeft="85dp"
-        android:hint=" Enter Your Note"
+        android:hint="Enter Your Note"
         android:textColor="#18212A"
-        android:paddingLeft="5dp"
+        android:paddingLeft="10dp"
         android:textSize="20dp"
         android:gravity="top"
         android:maxLines="12"

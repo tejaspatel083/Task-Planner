@@ -4,6 +4,17 @@
     android:background="@drawable/gradient"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:fontFamily="serif"
+        android:text="Choose date to Add Task"
+        android:layout_marginTop="130dp"
+        android:layout_centerHorizontal="true"/>
+
     <CalendarView
         android:id="@+id/calenderView"
         android:layout_width="wrap_content"

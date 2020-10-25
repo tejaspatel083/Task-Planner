@@ -24,11 +24,11 @@
     <TextView
         android:layout_width="250dp"
         android:layout_height="28dp"
-        android:background="#FFFFFF"
+        android:background="@drawable/text_background"
         android:id="@+id/titleEditText"
         android:layout_marginTop="65dp"
         android:layout_marginLeft="85dp"
-        android:paddingLeft="5dp"
+        android:paddingLeft="10dp"
         android:textSize="20dp"
         android:textColor="#18212A"
         />
@@ -49,11 +49,11 @@
     <TextView
         android:layout_width="250dp"
         android:layout_height="28dp"
-        android:background="#FFFFFF"
+        android:background="@drawable/text_background"
         android:id="@+id/dateTextView"
         android:layout_marginTop="105dp"
         android:layout_marginLeft="85dp"
-        android:paddingLeft="5dp"
+        android:paddingLeft="10dp"
         android:textColor="#18212A"
         android:textSize="20dp"/>
 
@@ -73,13 +73,13 @@
     <TextView
         android:layout_width="250dp"
         android:layout_height="300dp"
-        android:background="#ffffff"
+        android:background="@drawable/text_background"
         android:id="@+id/noteScroll"
         android:textColor="#18212A"
         android:layout_marginTop="145dp"
         android:layout_marginLeft="85dp"
         android:gravity="top"
-        android:paddingLeft="5dp"
+        android:paddingLeft="10dp"
         android:textSize="20dp"
         android:maxLines="12"
         android:scrollbars="vertical"
