@@ -6,12 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CalendarView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class HomeFragment extends Fragment {
+
+    private CalendarView calender;
 
 
     @Nullable
@@ -20,6 +23,20 @@ public class HomeFragment extends Fragment {
 
 
         View view =  inflater.inflate(R.layout.fragment_home,container,false);
+
+        calender = view.findViewById(R.id.calenderView);
+
+        calender.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+
+                String s = dayOfMonth + " - " + (month + 1) + " - " + year;
+
+                Intent intent = new Intent(getActivity(),AddTaskPage.class);
+                intent.putExtra("Key",s);
+                startActivity(intent);
+            }
+        });
 
         return view;
 

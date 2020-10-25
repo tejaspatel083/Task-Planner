@@ -53,6 +53,16 @@ public class HomePage extends AppCompatActivity {
 
                 switch (item.getItemId())
                 {
+                    case R.id.MyTasks :
+
+                        fragment = new TaskListFragment();
+                        break;
+
+                    case R.id.Profile :
+
+                        fragment = new ProfileFragment();
+                        break;
+
                     case R.id.Logout :
 
                         Toast toast = Toast.makeText(HomePage.this,"Logged out",Toast.LENGTH_LONG);
@@ -87,9 +97,6 @@ public class HomePage extends AppCompatActivity {
         {
             return true;
         }
-
-
-
 
         return super.onOptionsItemSelected(item);
     }

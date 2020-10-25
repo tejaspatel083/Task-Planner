@@ -8,13 +8,21 @@ import android.widget.TextView;
 
 public class AddTaskPage extends AppCompatActivity {
 
+    private TextView NoteScroll,date;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task_page);
 
-        TextView NoteScroll = (TextView)findViewById(R.id.noteEditText);
+        NoteScroll = findViewById(R.id.noteEditText);
+        date = findViewById(R.id.dateTextView);
+
 
         NoteScroll.setMovementMethod(new ScrollingMovementMethod());
+
+        String str = getIntent().getExtras().getString("Key");
+        date.setText(str);
+
     }
 }
