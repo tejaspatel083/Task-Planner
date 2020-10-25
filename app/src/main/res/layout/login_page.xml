@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="530dp"
         android:layout_centerHorizontal="true"
-        android:textColor="#18212A"
+        android:textColor="#ffffff"
         android:text="@string/pwd"/>
 
     <Button
