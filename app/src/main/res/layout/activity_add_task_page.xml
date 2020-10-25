@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddTaskPage"
+    android:background="@drawable/gradient">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Date"
+        android:layout_marginTop="60dp"
+        android:layout_toRightOf="@+id/emiltxt"
+        android:textSize="18dp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:padding="5dp"
+        android:text="Date  : "/>
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="28dp"
+        android:background="#FFFFFF"
+        android:id="@+id/dateTextView"
+        android:layout_marginTop="65dp"
+        android:layout_marginLeft="85dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        android:layout_marginTop="100dp"
+        android:layout_toRightOf="@+id/emiltxt"
+        android:textSize="18dp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:padding="5dp"
+        android:text="Title  : "/>
+
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="28dp"
+        android:background="#FFFFFF"
+        android:id="@+id/titleEditText"
+        android:layout_marginTop="105dp"
+        android:layout_marginLeft="85dp"
+        android:hint=" Enter Yout Title"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/note"
+        android:layout_marginTop="140dp"
+        android:layout_toRightOf="@+id/emiltxt"
+        android:textSize="18dp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:padding="5dp"
+        android:text="Note  : "/>
+
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="300dp"
+        android:background="#FFFFFF"
+        android:id="@+id/noteEditText"
+        android:layout_marginTop="145dp"
+        android:layout_marginLeft="85dp"
+        android:hint=" Enter Yout Title"
+        android:gravity="top"
+        />
+
+    <Button
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnupdate"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="480dp"
+        android:textColor="#000000"
+        android:background="@drawable/button_background"
+        android:text="Add Task"
+        android:textSize="20dp"
+        />
+
+
+</RelativeLayout>
