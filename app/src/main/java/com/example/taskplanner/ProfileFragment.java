@@ -17,6 +17,7 @@ public class ProfileFragment  extends Fragment {
 
 
         View view =  inflater.inflate(R.layout.fragment_profile,container,false);
+        getActivity().setTitle("Profile");
 
         return view;
 

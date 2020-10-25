@@ -17,6 +17,7 @@ public class TaskListFragment extends Fragment {
 
 
         View view =  inflater.inflate(R.layout.fragment_task_list,container,false);
+        getActivity().setTitle("My Task List");
 
         return view;
 

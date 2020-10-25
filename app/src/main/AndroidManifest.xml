@@ -16,7 +16,7 @@
         <activity android:name=".AddTaskPage"
             android:label="Add Task"/>
         <activity android:name=".HomePage"
-            android:label="Home Page"/>
+            android:label="Home"/>
         <activity android:name=".CreateAccountPage"
             android:label="Create Account"/>
         <activity android:name=".LoginPage">
