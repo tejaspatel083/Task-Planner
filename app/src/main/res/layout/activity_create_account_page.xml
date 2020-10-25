@@ -4,103 +4,126 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     tools:context=".CreateAccountPage">
 
     <ImageView
-        android:id="@+id/ivselectimage"
-        android:layout_width="match_parent"
-        android:layout_height="190dp"
-
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        tools:srcCompat="@drawable/ic_account_circle_black_24dp" />
-
+        android:id="@+id/DpImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/gradient"
+        app:srcCompat="@drawable/ic_perm_identity_black_24dp"
+        tools:ignore="VectorDrawableCompat"/>
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/selectimage"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginRight="20dp"
-        android:gravity="center_horizontal"
-        android:text="select_image"
-        android:textStyle="bold" />
-
+        android:text="Tap to choose Image"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:textColor="#ffffff"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="185dp"/>
     <EditText
-        android:id="@+id/etName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="20dp"
+        android:id="@+id/CreateName"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="230dp"
-        android:layout_marginRight="20dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:gravity="center_horizontal"
-        android:hint="name*"
-        android:inputType="textPersonName"
-        android:textStyle="bold"
-        />
-
+        android:hint="Name*"
+        android:textColor="#18212A"
+        android:textColorHint="#18212A"
+        android:background="@drawable/text_background"
+        android:drawableLeft="@drawable/ic_account_circle_black_24dp"
+        android:paddingLeft="10dp"
+        android:drawablePadding="10dp"
+        android:inputType="textPersonName"/>
     <EditText
-        android:id="@+id/editTextTextPersonName2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="280dp"
-        android:layout_marginRight="20dp"
-        android:ems="10"
-        android:gravity="center_horizontal"
-        android:hint="email*"
-        android:inputType="textPersonName"
-        android:textStyle="bold"
-        android:autofillHints="" />
-
+        android:id="@+id/CreateEmail"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="290dp"
+        android:hint="Email*"
+        android:textColor="#18212A"
+        android:textColorHint="#18212A"
+        android:background="@drawable/text_background"
+        android:drawableLeft="@drawable/ic_email_black_24dp"
+        android:paddingLeft="10dp"
+        android:drawablePadding="10dp"
+        android:inputType="textEmailAddress"/>
     <EditText
-        android:id="@+id/editTextTextPersonName3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="330dp"
-        android:layout_marginRight="20dp"
-        android:ems="10"
-        android:gravity="center_horizontal"
-        android:hint="password"
-        android:inputType="textPersonName"
-        android:textStyle="bold"
-        android:autofillHints="" />
-
+        android:id="@+id/CreatePassword"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="350dp"
+        android:hint="Password*"
+        android:textColor="#18212A"
+        android:textColorHint="#18212A"
+        android:background="@drawable/text_background"
+        android:drawableLeft="@drawable/ic_lock_black_24dp"
+        android:paddingLeft="10dp"
+        android:drawablePadding="10dp"
+        android:inputType="textPassword"/>
     <EditText
-        android:id="@+id/editTextTextPersonName4"
-        android:layout_width="match_parent"
+        android:id="@+id/CreateRePassword"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="410dp"
+        android:hint="Confirm Password*"
+        android:textColor="#18212A"
+        android:textColorHint="#18212A"
+        android:background="@drawable/text_background"
+        android:drawableLeft="@drawable/ic_lock_black_24dp"
+        android:paddingLeft="10dp"
+        android:drawablePadding="10dp"
+        android:inputType="textPassword"/>
+    <TextView
+        android:id="@+id/visible1"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="380dp"
-        android:layout_marginRight="20dp"
-        android:ems="10"
-        android:gravity="center_horizontal"
-        android:hint="confirmpassword"
-        android:inputType="textPersonName"
-        android:textStyle="bold"
-        android:autofillHints="" />
-
+        android:layout_width="wrap_content"
+        android:drawableLeft="@drawable/ic_visibility_black_24dp"
+        android:layout_marginLeft="315dp"
+        android:visibility="invisible"
+        android:layout_marginTop="358dp"/>
+    <TextView
+        android:id="@+id/notvisible1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:drawableLeft="@drawable/ic_visibility_off_black_24dp"
+        android:layout_marginLeft="315dp"
+        android:visibility="invisible"
+        android:layout_marginTop="358dp"/>
+    <TextView
+        android:id="@+id/visible2"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:drawableLeft="@drawable/ic_visibility_black_24dp"
+        android:layout_marginLeft="315dp"
+        android:visibility="invisible"
+        android:layout_marginTop="418dp"/>
+    <TextView
+        android:id="@+id/notvisible2"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:drawableLeft="@drawable/ic_visibility_off_black_24dp"
+        android:layout_marginLeft="315dp"
+        android:visibility="invisible"
+        android:layout_marginTop="418dp"/>
     <Button
-        android:id="@+id/button2"
-        android:layout_width="match_parent"
+        android:id="@+id/CreateBtn"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="450dp"
-        android:layout_marginRight="20dp"
-        android:gravity="center_horizontal"
-        android:text="create"
-        android:textStyle="bold"
-        tools:ignore="MissingConstraints" />
-
+        android:text="Create"
+        android:textSize="25dp"
+        android:textColor="#18212A"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="500dp"
+        android:background="@drawable/button_background" />
 
 
 </RelativeLayout>

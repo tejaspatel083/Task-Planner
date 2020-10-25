@@ -17,7 +17,7 @@ public class LoginPage extends AppCompatActivity {
         setContentView(R.layout.login_page);
 
 
-        loginbtn = findViewById(R.id.login);
+        loginbtn = findViewById(R.id.MainLoginBtn);
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
