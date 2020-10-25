@@ -2,6 +2,7 @@ package com.example.taskplanner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -15,6 +16,7 @@ public class CreateAccountPage extends AppCompatActivity {
     private EditText user_pwd1,user_pwd2;
     private TextView v1,v2,iv1,iv2;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
