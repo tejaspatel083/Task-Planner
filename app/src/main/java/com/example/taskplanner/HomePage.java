@@ -53,6 +53,11 @@ public class HomePage extends AppCompatActivity {
 
                 switch (item.getItemId())
                 {
+                    case R.id.Home :
+
+                        fragment = new HomeFragment();
+                        break;
+
                     case R.id.MyTasks :
 
                         fragment = new TaskListFragment();
