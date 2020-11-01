@@ -1,6 +1,6 @@
 package com.example.taskplanner;
 
-import android.app.TaskInfo;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 public class TaskListFragment extends Fragment {
 
-    private ListView listView;
-    private ArrayList<TaskInfo> arrayList;
-   private CustomAdapterList arrayAdapter;
+    ListView listView;
+    ArrayList<TaskInfo> arrayList;
+    CustomAdapterList arrayAdapter;
 
     @Nullable
     @Override
@@ -30,6 +30,8 @@ public class TaskListFragment extends Fragment {
         listView = view.findViewById(R.id.task_listview);
 
         arrayList = new ArrayList<TaskInfo>();
+
+
 
         arrayList.add( new TaskInfo("Gym","21-10-2020"));
         arrayList.add(new TaskInfo("College","22-11-2020"));
