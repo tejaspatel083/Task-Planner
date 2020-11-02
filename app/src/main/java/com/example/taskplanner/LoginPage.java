@@ -1,5 +1,6 @@
 package com.example.taskplanner;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -12,13 +13,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginPage extends AppCompatActivity {
 
     private Button loginbtn,createAccountbtn;
     private TextView forgotPassword;
-    private EditText pwd;
+    private EditText pwd,emailId;
     private TextView v1,iv1;
+    private FirebaseAuth firebaseAuth;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -31,8 +40,12 @@ public class LoginPage extends AppCompatActivity {
         createAccountbtn = findViewById(R.id.MainCreateBtn);
         forgotPassword = findViewById(R.id.MainForgotPassword);
         pwd = findViewById(R.id.MainPassword);
+        emailId = findViewById(R.id.MainEmail);
         v1 = findViewById(R.id.visible);
         iv1 = findViewById(R.id.notvisible);
+
+
+       firebaseAuth = FirebaseAuth.getInstance();
 
         pwd.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -64,9 +77,33 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(LoginPage.this,HomePage.class);
-                startActivity(intent);
+
+                String email = emailId.getText().toString().trim();
+                String password = pwd.getText().toString().trim();
+
+
+                firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        if(task.isSuccessful())
+                        {
+
+                            checkEmailVerification();
+
+                        }
+                        else
+                        {
+
+                        }
+
+                    }
+                });
+
+
             }
+
+
         });
 
         createAccountbtn.setOnClickListener(new View.OnClickListener() {
@@ -87,5 +124,24 @@ public class LoginPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    private void checkEmailVerification() {
+
+
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        Boolean emailflag = firebaseUser.isEmailVerified();
+
+        if(emailflag)
+        {
+
+            Toast.makeText(this, "Login SuccessFull", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(LoginPage.this,HomePage.class);
+            startActivity(intent);
+        }
+        else
+        {
+            Toast.makeText(this, "Please verify your Email", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
