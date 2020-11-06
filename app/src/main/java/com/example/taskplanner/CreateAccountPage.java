@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 
 public class CreateAccountPage extends AppCompatActivity {
@@ -100,28 +103,59 @@ public class CreateAccountPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String email=user_email.getText().toString().trim();
-                String password = user_pwd1.getText().toString().trim();
+                if (user_name.getText().toString().trim().length()==0 || user_email.getText().toString().trim().length()==0 || user_pwd1.getText().toString().trim().length()==0 || user_pwd2.getText().toString().trim().length()==0  || imagePath == null)
+                {
+                    Toast toast = Toast.makeText(CreateAccountPage.this,"Enter All Details",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                }
+                else if (user_pwd1.getText().toString().trim().equals(user_pwd2.getText().toString().trim()))
+                {
+                    String name = user_name.getText().toString().trim();
+                    String email=user_email.getText().toString().trim();
+                    String password = user_pwd1.getText().toString().trim();
 
 
-               firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                   @Override
-                   public void onComplete(@NonNull Task<AuthResult> task) {
+                    firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
 
-                       if(task.isSuccessful())
-                       {
-                           sendEmailVerification();
+                            if(task.isSuccessful())
+                            {
+                                sendEmailVerification();
 
-                       }
+                            }
 
-                       else
-                       {
+                            else
+                            {
 
-                       }
-                   }
+                                if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+
+                                    Toast toast = Toast.makeText(CreateAccountPage.this,"User with this email already exist.",Toast.LENGTH_LONG);
+                                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                    toast.show();
+                                }
+                                else
+                                {
+                                    Toast toast = Toast.makeText(CreateAccountPage.this,"Enter Strong Password\n[ Including Text and Number ]",Toast.LENGTH_LONG);
+                                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                    toast.show();
+                                }
+
+                            }
+                        }
 
 
-               });
+                    });
+                }
+                else
+                {
+                    Toast toast = Toast.makeText(CreateAccountPage.this,"Password not matched",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                }
+
+
             }
         });
 
@@ -138,13 +172,20 @@ public class CreateAccountPage extends AppCompatActivity {
                     if(task.isSuccessful())
                     {
                         firebaseAuth.signOut();
-                        Toast.makeText(CreateAccountPage.this, "Registration is complete", Toast.LENGTH_SHORT).show();
+                        finish();
+
+                        Toast toast = Toast.makeText(CreateAccountPage.this,"Registration Completed.\nVerify Email",Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.show();
+                        startActivity(new Intent(CreateAccountPage.this,LoginPage.class));
+
                     }
 
                     else
                     {
-                        Toast.makeText(CreateAccountPage.this, "Verification is not complete", Toast.LENGTH_SHORT).show();
-
+                        Toast toast = Toast.makeText(CreateAccountPage.this,"Verification mail has not been sent",Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.show();
                     }
 
 
