@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -77,28 +78,56 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if (emailId.getText().toString().trim().length() == 0)
+                {
+                    emailId.setError("Email Id Required");
+                    //Toast.makeText(MainActivity.this,"Enter Email",Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(LoginPage.this,"Enter Email",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                }
+                else if (pwd.getText().toString().trim().length() == 0)
+                {
+                    emailId.setError(null);
+                    pwd.setError("Password Required");
+                    //Toast.makeText(MainActivity.this,"Enter Password",Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(LoginPage.this,"Enter Password",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                }
+                else
+                {
+                    emailId.setError(null);
+                    pwd.setError(null);
 
-                String email = emailId.getText().toString().trim();
-                String password = pwd.getText().toString().trim();
+                    String email = emailId.getText().toString().trim();
+                    String password = pwd.getText().toString().trim();
 
 
-                firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                    firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        if(task.isSuccessful())
-                        {
+                            if(task.isSuccessful())
+                            {
 
-                            checkEmailVerification();
+                                checkEmailVerification();
+
+                            }
+                            else
+                            {
+
+                                Toast toast = Toast.makeText(LoginPage.this,"Enter Valid Email and Password",Toast.LENGTH_LONG);
+                                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                toast.show();
+                            }
 
                         }
-                        else
-                        {
+                    });
 
-                        }
+                }
 
-                    }
-                });
+
 
 
             }

@@ -103,7 +103,7 @@ public class CreateAccountPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (user_name.getText().toString().trim().length()==0 || user_email.getText().toString().trim().length()==0 || user_pwd1.getText().toString().trim().length()==0 || user_pwd2.getText().toString().trim().length()==0  || imagePath == null)
+                if (user_name.getText().toString().trim().length()==0 || user_email.getText().toString().trim().length()==0 || user_pwd1.getText().toString().trim().length()==0 || user_pwd2.getText().toString().trim().length()==0)
                 {
                     Toast toast = Toast.makeText(CreateAccountPage.this,"Enter All Details",Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
