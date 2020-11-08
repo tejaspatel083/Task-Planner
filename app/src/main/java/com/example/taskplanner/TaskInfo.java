@@ -4,8 +4,16 @@ class TaskInfo {
 
     String title;
     String date;
+    String note;
 
     public TaskInfo() {
+    }
+
+
+    public TaskInfo(String title, String date, String note) {
+        this.title = title;
+        this.date = date;
+        this.note = note;
     }
 
     public TaskInfo(String title, String date) {
@@ -27,5 +35,13 @@ class TaskInfo {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }
