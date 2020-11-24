@@ -1,12 +1,15 @@
 package com.example.taskplanner;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -46,6 +49,22 @@ public class TaskListFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
 
         arrayList = new ArrayList<TaskInfo>();
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                TaskInfo taskInfo = (TaskInfo) parent.getAdapter().getItem(position);
+                String title = taskInfo.getTitle();
+
+                Intent intent = new Intent(getContext(),TaskDetails.class);
+                intent.putExtra("TitleName",title);
+                startActivity(intent);
+
+            }
+        });
+
 
 
         db.collection("Collection-1")
