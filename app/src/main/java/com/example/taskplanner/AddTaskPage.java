@@ -51,7 +51,7 @@ public class AddTaskPage extends AppCompatActivity {
 
         date.setText(strDate);
 
-        n=0;
+
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +62,6 @@ public class AddTaskPage extends AppCompatActivity {
 
                 TaskInfo obj = new TaskInfo(strTitle,strDate,strNote);
 
-                n += 1;
                 db.collection("Collection-1")
                         .document("User Task List")
                         .collection(firebaseAuth.getUid())

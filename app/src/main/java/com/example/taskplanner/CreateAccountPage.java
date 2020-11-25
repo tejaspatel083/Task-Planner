@@ -17,11 +17,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
 
 public class CreateAccountPage extends AppCompatActivity {
 
@@ -29,6 +33,7 @@ public class CreateAccountPage extends AppCompatActivity {
     private TextView v1,v2,iv1,iv2;
     private Button Createbtn;
     private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore db;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -47,7 +52,7 @@ public class CreateAccountPage extends AppCompatActivity {
         v2 = findViewById(R.id.visible2);
         iv2 = findViewById(R.id.notvisible2);
 
-
+        db = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
 
         user_pwd1.setOnTouchListener(new View.OnTouchListener() {
@@ -171,13 +176,17 @@ public class CreateAccountPage extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful())
                     {
+                        sendData();
                         firebaseAuth.signOut();
                         finish();
+
+
 
                         Toast toast = Toast.makeText(CreateAccountPage.this,"Registration Completed.\nVerify Email",Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.show();
                         startActivity(new Intent(CreateAccountPage.this,LoginPage.class));
+
 
                     }
 
@@ -187,10 +196,6 @@ public class CreateAccountPage extends AppCompatActivity {
                         toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.show();
                     }
-
-
-
-
                 }
             });
 
@@ -200,6 +205,31 @@ public class CreateAccountPage extends AppCompatActivity {
 
 
 
+    }
+
+    private void sendData() {
+
+        String name = user_name.getText().toString().trim();
+        String email = user_email.getText().toString().trim();
+
+        UserInfo obj = new UserInfo(name,email);
+
+        db.collection("Collection-2")
+                .document("User Information")
+                .collection(firebaseAuth.getUid())
+                .add(obj)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
     }
 
 

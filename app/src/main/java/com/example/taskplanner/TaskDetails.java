@@ -32,7 +32,7 @@ public class TaskDetails extends AppCompatActivity {
         title = findViewById(R.id.titleTextView);
         date = findViewById(R.id.dateTextView);
         notes = findViewById(R.id.noteScrollTextView);
-        
+
         db = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
 
