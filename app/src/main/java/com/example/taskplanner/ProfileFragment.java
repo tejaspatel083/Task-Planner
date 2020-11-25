@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import com.google.firebase.firestore.auth.User;
 public class ProfileFragment  extends Fragment {
 
     private TextView name,email;
+    private Button button;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
 
@@ -36,6 +38,7 @@ public class ProfileFragment  extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_profile,container,false);
         getActivity().setTitle("Profile");
 
+        button = view.findViewById(R.id.ProfileUpdateButton);
         name = view.findViewById(R.id.ProfileName);
         email = view.findViewById(R.id.ProfileEmail);
         db = FirebaseFirestore.getInstance();
@@ -73,6 +76,13 @@ public class ProfileFragment  extends Fragment {
 
                     }
                 });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         return view;
     }
