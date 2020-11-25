@@ -1,10 +1,16 @@
 package com.example.taskplanner;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,10 +27,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.auth.User;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
 public class ProfileFragment  extends Fragment {
 
     private TextView name,email;
     private Button button;
+    private EditText edit_name;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
 
@@ -45,35 +54,42 @@ public class ProfileFragment  extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
 
         db.collection("Collection-2")
-                .document("User Information")
-                .collection(firebaseAuth.getUid())
+                .document(firebaseAuth.getUid())
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
                         if(task.isSuccessful())
                         {
-                            for (DocumentSnapshot documentSnapshot: task.getResult())
+
+
+                            DocumentSnapshot documentSnapshot = task.getResult();
+
+                            if (documentSnapshot.exists())
                             {
                                 UserInfo obj = documentSnapshot.toObject(UserInfo.class);
                                 name.setText(obj.getName());
                                 email.setText(obj.getEmail());
+
                             }
+                            else {
+                                Log.d(TAG, "No such document");
+                            }
+
+
                         }
                         else
                         {
                             Toast.makeText(getContext(), "Something went wrong!!!", Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
 
-                        Toast.makeText(getContext(), "Error:"+e.getMessage(), Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText(getContext(), "Error : "+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -81,6 +97,65 @@ public class ProfileFragment  extends Fragment {
             @Override
             public void onClick(View v) {
 
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                LayoutInflater layoutInflater = getActivity().getLayoutInflater();
+                View view = layoutInflater.inflate(R.layout.custom_dialog,null);
+
+                edit_name = view.findViewById(R.id.updateName);
+
+                builder.setView(view).setTitle("Update Profile");
+
+                builder.setView(view).setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+
+
+                builder.setView(view).setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        String name = edit_name.getText().toString().trim();
+
+                        UserInfo userInfo = new UserInfo(name);
+
+
+                        db.collection("Collection-2")
+                                .document(firebaseAuth.getUid())
+                                .update("name",name)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                        Toast toast = Toast.makeText(getActivity(),"Profile Updated",Toast.LENGTH_LONG);
+                                        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                        toast.show();
+                                        
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+
+                                        Toast toast = Toast.makeText(getActivity(),"Error : "+e.getMessage(),Toast.LENGTH_LONG);
+                                        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                        toast.show();
+                                    }
+                                });
+
+
+
+
+
+                    }
+                });
+
+                builder.show();
             }
         });
 

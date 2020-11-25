@@ -215,12 +215,11 @@ public class CreateAccountPage extends AppCompatActivity {
         UserInfo obj = new UserInfo(name,email);
 
         db.collection("Collection-2")
-                .document("User Information")
-                .collection(firebaseAuth.getUid())
-                .add(obj)
-                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                .document(firebaseAuth.getUid())
+                .set(obj)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                    public void onComplete(@NonNull Task<Void> task) {
 
                     }
                 })
