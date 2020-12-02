@@ -1,11 +1,15 @@
 package com.example.taskplanner;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.Gravity;
@@ -13,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,13 +32,38 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.auth.User;
 
+import java.io.IOException;
+
 public class CreateAccountPage extends AppCompatActivity {
 
     private EditText user_pwd1,user_pwd2,user_name,user_email;
     private TextView v1,v2,iv1,iv2;
     private Button Createbtn;
+    private ImageView dpimage;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
+    private static int PICK_IMAGE = 123;
+    private Uri imagePath;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data.getData() != null)
+        {
+
+            imagePath = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imagePath);
+                dpimage.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -41,6 +71,7 @@ public class CreateAccountPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account_page);
 
+        dpimage = findViewById(R.id.DpImage);
         user_email = findViewById(R.id.CreateEmail);
         user_name = findViewById(R.id.CreateName);
         user_pwd1 = findViewById(R.id.CreatePassword);
