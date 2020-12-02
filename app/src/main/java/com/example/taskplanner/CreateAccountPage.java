@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +32,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.auth.User;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 
@@ -42,6 +46,8 @@ public class CreateAccountPage extends AppCompatActivity {
     private ImageView dpimage;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
+    private FirebaseStorage firebaseStorage;
+    private StorageReference storageReference;
     private static int PICK_IMAGE = 123;
     private Uri imagePath;
 
@@ -85,6 +91,8 @@ public class CreateAccountPage extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference();
 
         user_pwd1.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -134,6 +142,17 @@ public class CreateAccountPage extends AppCompatActivity {
         });
 
 
+        dpimage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent,"Choose Image"),PICK_IMAGE);
+            }
+        });
 
         Createbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -260,6 +279,28 @@ public class CreateAccountPage extends AppCompatActivity {
 
                     }
                 });
+
+
+        StorageReference imageReference = storageReference.child("User Profile Images").child(firebaseAuth.getUid());
+        UploadTask uploadTask = imageReference.putFile(imagePath);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+
+                Toast toast = Toast.makeText(CreateAccountPage.this,"Upload Failed",Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
+
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+
+
+            }
+        });
     }
 
 
