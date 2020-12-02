@@ -3,6 +3,7 @@ package com.example.taskplanner;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,12 +22,16 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.auth.User;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -33,9 +39,11 @@ public class ProfileFragment  extends Fragment {
 
     private TextView name,email;
     private Button button;
+    private ImageView dp;
     private EditText edit_name;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
+    private FirebaseStorage firebaseStorage;
 
 
 
@@ -47,11 +55,14 @@ public class ProfileFragment  extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_profile,container,false);
         getActivity().setTitle("Profile");
 
+        dp = view.findViewById(R.id.ProfileImage);
         button = view.findViewById(R.id.ProfileUpdateButton);
         name = view.findViewById(R.id.ProfileName);
         email = view.findViewById(R.id.ProfileEmail);
         db = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+
 
         db.collection("Collection-2")
                 .document(firebaseAuth.getUid())
@@ -92,6 +103,22 @@ public class ProfileFragment  extends Fragment {
                         Toast.makeText(getContext(), "Error : "+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
+        StorageReference storageReference = firebaseStorage.getReference();
+        storageReference.child("User Profile Images")
+                .child(firebaseAuth.getUid())
+                .getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+
+                Picasso.get().load(uri).into(dp);
+
+            }
+        });
+
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
