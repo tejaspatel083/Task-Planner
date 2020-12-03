@@ -59,7 +59,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/note"
+        android:id="@+id/favourite"
         android:layout_marginTop="140dp"
         android:layout_toRightOf="@+id/emiltxt"
         android:textSize="20dp"
@@ -67,14 +67,36 @@
         android:textStyle="bold"
         android:layout_marginLeft="10dp"
         android:padding="5dp"
-        android:text="Note  : "/>
+        android:text="Fav.   :"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkbox"
+        android:layout_marginTop="140dp"
+        android:layout_toRightOf="@+id/emiltxt"
+        android:layout_marginLeft="85dp"
+        android:background="@drawable/text_background"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/note"
+        android:layout_marginTop="180dp"
+        android:layout_toRightOf="@+id/emiltxt"
+        android:textSize="20dp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:padding="5dp"
+        android:text="Note  :"/>
 
     <EditText
         android:layout_width="250dp"
         android:layout_height="240dp"
         android:background="@drawable/text_background"
         android:id="@+id/noteEditText"
-        android:layout_marginTop="145dp"
+        android:layout_marginTop="185dp"
         android:layout_marginLeft="85dp"
         android:hint="Enter Your Note"
         android:textColor="#18212A"

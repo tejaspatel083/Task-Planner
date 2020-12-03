@@ -64,7 +64,7 @@ public class ProfileFragment  extends Fragment {
         firebaseStorage = FirebaseStorage.getInstance();
 
 
-        db.collection("Collection-2")
+        db.collection("User Profile Information")
                 .document(firebaseAuth.getUid())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -152,7 +152,7 @@ public class ProfileFragment  extends Fragment {
                         UserInfo userInfo = new UserInfo(name);
 
 
-                        db.collection("Collection-2")
+                        db.collection("User Profile Information")
                                 .document(firebaseAuth.getUid())
                                 .update("name",name)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -162,6 +162,8 @@ public class ProfileFragment  extends Fragment {
                                         Toast toast = Toast.makeText(getActivity(),"Profile Updated",Toast.LENGTH_LONG);
                                         toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
                                         toast.show();
+                                        Fragment rSum = null;
+                                        rSum = new ProfileFragment();
                                         
                                     }
                                 })

@@ -259,12 +259,44 @@ public class CreateAccountPage extends AppCompatActivity {
 
     private void sendData() {
 
+
+
+        StorageReference ref = storageReference.child("User Profile Images").child(firebaseAuth.getUid());
+
+        // adding listeners on upload
+        // or failure of image
+        ref.putFile(imagePath)
+                .addOnSuccessListener(
+                        new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+                            @Override
+                            public void onSuccess(
+                                    UploadTask.TaskSnapshot taskSnapshot)
+                            {
+
+                            }
+                        })
+
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e)
+                    {
+
+                        Toast toast = Toast.makeText(CreateAccountPage.this,"Upload Failed",Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.show();
+
+                    }
+                });
+
+
+
         String name = user_name.getText().toString().trim();
         String email = user_email.getText().toString().trim();
 
         UserInfo obj = new UserInfo(name,email);
 
-        db.collection("Collection-2")
+        db.collection("User Profile Information")
                 .document(firebaseAuth.getUid())
                 .set(obj)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -281,26 +313,7 @@ public class CreateAccountPage extends AppCompatActivity {
                 });
 
 
-        StorageReference imageReference = storageReference.child("User Profile Images").child(firebaseAuth.getUid());
-        UploadTask uploadTask = imageReference.putFile(imagePath);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
 
-
-                Toast toast = Toast.makeText(CreateAccountPage.this,"Upload Failed",Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
-                toast.show();
-
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-
-
-            }
-        });
     }
 
 

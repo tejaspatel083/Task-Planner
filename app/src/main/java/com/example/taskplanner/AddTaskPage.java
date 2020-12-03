@@ -9,6 +9,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ public class AddTaskPage extends AppCompatActivity {
 
     private TextView date;
     private EditText NoteScroll,NoteTitle;
+    private CheckBox favourite;
     private Button addBtn;
     private FirebaseFirestore db;
     private FirebaseAuth firebaseAuth;
@@ -39,6 +41,7 @@ public class AddTaskPage extends AppCompatActivity {
         NoteTitle = findViewById(R.id.titleEditText);
         NoteScroll = findViewById(R.id.noteEditText);
         date = findViewById(R.id.dateTextView);
+        favourite = findViewById(R.id.checkbox);
         addBtn = findViewById(R.id.btnAddTask);
 
         db = FirebaseFirestore.getInstance();

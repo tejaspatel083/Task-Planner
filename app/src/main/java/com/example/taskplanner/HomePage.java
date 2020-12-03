@@ -63,6 +63,11 @@ public class HomePage extends AppCompatActivity {
                         fragment = new TaskListFragment();
                         break;
 
+                    case R.id.FavTasks :
+
+                        fragment = new FavouriteTaskListFragment();
+                        break;
+
                     case R.id.Profile :
 
                         fragment = new ProfileFragment();
