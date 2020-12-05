@@ -65,28 +65,60 @@ public class AddTaskPage extends AppCompatActivity {
 
                 TaskInfo obj = new TaskInfo(strTitle,strDate,strNote);
 
-                db.collection("Collection-1")
-                        .document("User Task List")
-                        .collection(firebaseAuth.getUid())
-                        .add(obj)
-                        .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentReference> task) {
-                                Toast toast = Toast.makeText(AddTaskPage.this,"Task Added",Toast.LENGTH_LONG);
-                                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
-                                toast.show();
-                                startActivity(new Intent(AddTaskPage.this,HomePage.class));
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
+                if(favourite.isChecked()){
+                    db.collection("Collection-2")
+                            .document("Favorite Task List")
+                            .collection(firebaseAuth.getUid())
+                            .add(obj)
+                            .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentReference> task) {
+                                    Toast toast = Toast.makeText(AddTaskPage.this,"Task Added",Toast.LENGTH_LONG);
+                                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                    toast.show();
+                                    startActivity(new Intent(AddTaskPage.this,HomePage.class));
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
 
-                                Toast toast = Toast.makeText(AddTaskPage.this,"Error"+e.getMessage(),Toast.LENGTH_LONG);
-                                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
-                                toast.show();
-                            }
-                        });
+                                    Toast toast = Toast.makeText(AddTaskPage.this,"Error"+e.getMessage(),Toast.LENGTH_LONG);
+                                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                    toast.show();
+                                }
+                            });
+
+                }
+
+                else
+                {
+                    db.collection("Collection-1")
+                            .document("User Task List")
+                            .collection(firebaseAuth.getUid())
+                            .add(obj)
+                            .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentReference> task) {
+                                    Toast toast = Toast.makeText(AddTaskPage.this,"Task Added",Toast.LENGTH_LONG);
+                                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                    toast.show();
+                                    startActivity(new Intent(AddTaskPage.this,HomePage.class));
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                    Toast toast = Toast.makeText(AddTaskPage.this,"Error"+e.getMessage(),Toast.LENGTH_LONG);
+                                    toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                    toast.show();
+                                }
+                            });
+
+                }
+
+
 
 
             }
