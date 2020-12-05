@@ -37,44 +37,88 @@ public class TaskDetails extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         String matchTitle = getIntent().getExtras().get("TitleName").toString();
+        String check = getIntent().getExtras().get("Favourite").toString();
 
+        if(check.equalsIgnoreCase("fav"))
+        {
+            db.collection("Collection-2")
+                    .document("Favorite Task List")
+                    .collection(firebaseAuth.getUid())
+                    .whereEqualTo("title",matchTitle)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-        db.collection("Collection-1")
-                .document("User Task List")
-                .collection(firebaseAuth.getUid())
-                .whereEqualTo("title",matchTitle)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                        if(task.isSuccessful())
-                        {
-
-                            for(DocumentSnapshot documentSnapshot:task.getResult())
+                            if(task.isSuccessful())
                             {
-                                TaskInfo taskInfo = documentSnapshot.toObject(TaskInfo.class);
-                                title.setText(taskInfo.getTitle());
-                                date.setText(taskInfo.getDate());
-                                notes.setText(taskInfo.getNote());
+
+                                for(DocumentSnapshot documentSnapshot:task.getResult())
+                                {
+                                    TaskInfo taskInfo = documentSnapshot.toObject(TaskInfo.class);
+                                    title.setText(taskInfo.getTitle());
+                                    date.setText(taskInfo.getDate());
+                                    notes.setText(taskInfo.getNote());
+                                }
+
+                            }
+                            else
+                            {
+                                Toast.makeText(TaskDetails.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
                             }
 
                         }
-                        else
-                        {
-                            Toast.makeText(TaskDetails.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                            Toast.makeText(TaskDetails.this, "Error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+
                         }
+                    });
+        }
+        else
+        {
+            db.collection("Collection-1")
+                    .document("User Task List")
+                    .collection(firebaseAuth.getUid())
+                    .whereEqualTo("title",matchTitle)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
+                            if(task.isSuccessful())
+                            {
 
-                        Toast.makeText(TaskDetails.this, "Error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                for(DocumentSnapshot documentSnapshot:task.getResult())
+                                {
+                                    TaskInfo taskInfo = documentSnapshot.toObject(TaskInfo.class);
+                                    title.setText(taskInfo.getTitle());
+                                    date.setText(taskInfo.getDate());
+                                    notes.setText(taskInfo.getNote());
+                                }
 
-                    }
-                });
+                            }
+                            else
+                            {
+                                Toast.makeText(TaskDetails.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                            Toast.makeText(TaskDetails.this, "Error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+        }
+
+
 
 
     }
