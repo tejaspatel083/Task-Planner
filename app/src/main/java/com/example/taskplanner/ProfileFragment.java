@@ -60,6 +60,7 @@ public class ProfileFragment  extends Fragment {
         name = view.findViewById(R.id.ProfileName);
         email = view.findViewById(R.id.ProfileEmail);
         db = FirebaseFirestore.getInstance();
+
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
 

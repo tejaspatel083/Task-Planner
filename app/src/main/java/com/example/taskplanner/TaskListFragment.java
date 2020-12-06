@@ -32,6 +32,7 @@ public class TaskListFragment extends Fragment {
     ListView listView;
     ArrayList<TaskInfo> arrayList;
     CustomAdapterList arrayAdapter;
+
     FirebaseFirestore db;
     FirebaseAuth firebaseAuth;
 
@@ -60,6 +61,7 @@ public class TaskListFragment extends Fragment {
 
                 Intent intent = new Intent(getContext(),TaskDetails.class);
                 intent.putExtra("TitleName",title);
+                intent.putExtra("key","normal");
                 startActivity(intent);
 
             }

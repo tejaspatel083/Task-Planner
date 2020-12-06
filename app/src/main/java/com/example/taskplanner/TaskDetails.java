@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.view.Gravity;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +38,7 @@ public class TaskDetails extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         String matchTitle = getIntent().getExtras().get("TitleName").toString();
-        String check = getIntent().getExtras().get("Favourite").toString();
+        String check = getIntent().getExtras().get("key").toString();
 
         if(check.equalsIgnoreCase("fav"))
         {
@@ -78,7 +79,7 @@ public class TaskDetails extends AppCompatActivity {
                         }
                     });
         }
-        else
+        else if(check.equalsIgnoreCase("normal"))
         {
             db.collection("Collection-1")
                     .document("User Task List")
@@ -116,6 +117,12 @@ public class TaskDetails extends AppCompatActivity {
 
                         }
                     });
+        }
+        else
+        {
+            Toast toast = Toast.makeText(TaskDetails.this,"Something went wrong",Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+            toast.show();
         }
 
 

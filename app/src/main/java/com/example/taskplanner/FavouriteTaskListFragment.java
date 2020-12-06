@@ -56,7 +56,7 @@ public class FavouriteTaskListFragment extends Fragment {
                 String title = taskInfo.getTitle();
 
                 Intent intent = new Intent(getContext(),TaskDetails.class);
-                intent.putExtra("Favourite","fav");
+                intent.putExtra("key","fav");
                 intent.putExtra("TitleName",title);
                 startActivity(intent);
 

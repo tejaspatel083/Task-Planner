@@ -263,8 +263,6 @@ public class CreateAccountPage extends AppCompatActivity {
 
         StorageReference ref = storageReference.child("User Profile Images").child(firebaseAuth.getUid());
 
-        // adding listeners on upload
-        // or failure of image
         ref.putFile(imagePath)
                 .addOnSuccessListener(
                         new OnSuccessListener<UploadTask.TaskSnapshot>() {

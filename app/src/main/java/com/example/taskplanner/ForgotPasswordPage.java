@@ -28,6 +28,7 @@ public class ForgotPasswordPage extends AppCompatActivity {
 
         forgotpwd = findViewById(R.id.ForgotEmail);
         submitbtn = findViewById(R.id.ForgotSubmitBtn);
+
         firebaseAuth = FirebaseAuth.getInstance();
 
 
@@ -46,6 +47,7 @@ public class ForgotPasswordPage extends AppCompatActivity {
                 }
                 else
                 {
+
 
                     firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

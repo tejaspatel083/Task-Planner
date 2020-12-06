@@ -40,13 +40,10 @@ public class CustomAdapterList extends BaseAdapter {
         convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.tasklist_model,null);
 
         title = convertView.findViewById(R.id.task_title);
-        //date = convertView.findViewById(R.id.task_date);
-
 
         TaskInfo taskInfo = (TaskInfo) getItem(position);
 
         title.setText(taskInfo.getTitle());
-        //date.setText(taskInfo.getDate());
 
 
         return convertView;
