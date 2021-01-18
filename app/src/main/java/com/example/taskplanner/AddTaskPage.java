@@ -1,6 +1,5 @@
 package com.example.taskplanner;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,14 +13,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.example.taskplanner.api_interfaces.JsonPlaceHolderApi;
+import com.example.taskplanner.models.TaskInfo;
+import com.example.taskplanner.models.UserInfo;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddTaskPage extends AppCompatActivity {
 
@@ -32,6 +35,7 @@ public class AddTaskPage extends AppCompatActivity {
     private FirebaseFirestore db;
     private FirebaseAuth firebaseAuth;
     private int n;
+    private String strDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +54,7 @@ public class AddTaskPage extends AppCompatActivity {
 
         NoteScroll.setMovementMethod(new ScrollingMovementMethod());
 
-        final String strDate = getIntent().getExtras().getString("Key");
+        strDate = getIntent().getExtras().getString("Key");
 
         date.setText(strDate);
 
@@ -60,12 +64,22 @@ public class AddTaskPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                /*
+
                 String strTitle = NoteTitle.getText().toString().trim();
                 String strNote = NoteScroll.getText().toString().trim();
 
                 TaskInfo obj = new TaskInfo(strTitle,strDate,strNote);
 
-                if(favourite.isChecked()){
+                 */
+
+                if(favourite.isChecked())
+                {
+
+                    addFavTask();
+
+                    /*
+
                     db.collection("Collection-2")
                             .document("Favorite Task List")
                             .collection(firebaseAuth.getUid())
@@ -89,10 +103,14 @@ public class AddTaskPage extends AppCompatActivity {
                                 }
                             });
 
+                     */
+
                 }
 
                 else
                 {
+                    addTask();
+                    /*
                     db.collection("Collection-1")
                             .document("User Task List")
                             .collection(firebaseAuth.getUid())
@@ -116,6 +134,8 @@ public class AddTaskPage extends AppCompatActivity {
                                 }
                             });
 
+                     */
+
                 }
 
 
@@ -123,6 +143,91 @@ public class AddTaskPage extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    void addTask()
+    {
+        String strTitle = NoteTitle.getText().toString().trim();
+        String strNote = NoteScroll.getText().toString().trim();
+
+        TaskInfo taskInfo = new TaskInfo(strTitle,strDate,strNote);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(taskInfo);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:3000/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
+        Call<TaskInfo> call = jsonPlaceHolderApi.addTask(taskInfo);
+
+
+
+        call.enqueue(new Callback<TaskInfo>() {
+            @Override
+            public void onResponse(Call<TaskInfo> call, Response<TaskInfo> response) {
+
+                Toast toast = Toast.makeText(AddTaskPage.this,"Task Added", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.BOTTOM| Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
+                startActivity(new Intent(AddTaskPage.this,HomePage.class));
+
+            }
+
+            @Override
+            public void onFailure(Call<TaskInfo> call, Throwable t) {
+
+                Toast toast = Toast.makeText(AddTaskPage.this,t.getMessage(),Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
+            }
+        });
+
+    }
+
+    void addFavTask()
+    {
+        String title = NoteTitle.getText().toString().trim();
+        String note = NoteScroll.getText().toString().trim();
+
+        TaskInfo task = new TaskInfo(title,strDate,note);
+
+
+        UserInfo user = new UserInfo();
+        Gson gson = new Gson();
+        String json = gson.toJson(task);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:3000/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
+       Call<TaskInfo> call = jsonPlaceHolderApi.addFavTask(task);
+
+       call.enqueue(new Callback<TaskInfo>() {
+           @Override
+           public void onResponse(Call<TaskInfo> call, Response<TaskInfo> response) {
+
+               Toast toast = Toast.makeText(AddTaskPage.this,"Task Added", Toast.LENGTH_LONG);
+               toast.setGravity(Gravity.BOTTOM| Gravity.CENTER_HORIZONTAL, 0, 0);
+               toast.show();
+               startActivity(new Intent(AddTaskPage.this,HomePage.class));
+           }
+
+           @Override
+           public void onFailure(Call<TaskInfo> call, Throwable t) {
+
+               Toast toast = Toast.makeText(AddTaskPage.this,t.getMessage(),Toast.LENGTH_LONG);
+               toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+               toast.show();
+           }
+       });
 
     }
 }

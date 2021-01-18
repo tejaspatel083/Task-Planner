@@ -16,11 +16,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.taskplanner.api_interfaces.JsonPlaceHolderApi;
+import com.example.taskplanner.models.UserInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -100,8 +108,15 @@ public class LoginPage extends AppCompatActivity {
                     emailId.setError(null);
                     pwd.setError(null);
 
+                    //login();
+
+                    Toast.makeText(LoginPage.this, "Login SuccessFull", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginPage.this,HomePage.class);
+                    startActivity(intent);
+                    /*
                     String email = emailId.getText().toString().trim();
                     String password = pwd.getText().toString().trim();
+
 
 
                     firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -111,7 +126,7 @@ public class LoginPage extends AppCompatActivity {
                             if(task.isSuccessful())
                             {
 
-                                checkEmailVerification();
+                                //checkEmailVerification();
 
                             }
                             else
@@ -124,6 +139,8 @@ public class LoginPage extends AppCompatActivity {
 
                         }
                     });
+
+                     */
 
                 }
 
@@ -171,6 +188,50 @@ public class LoginPage extends AppCompatActivity {
         {
             Toast.makeText(this, "Please verify your Email", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    public void login()
+    {
+        UserInfo userInfo = new UserInfo();
+
+        userInfo.setEmail(emailId.getText().toString().trim());
+        userInfo.setPassword(pwd.getText().toString().trim());
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:3000/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
+        Call<UserInfo> call = jsonPlaceHolderApi.login(userInfo);
+
+        call.enqueue(new Callback<UserInfo>() {
+            @Override
+            public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
+
+                if (response.isSuccessful())
+                {
+                    Toast.makeText(LoginPage.this, "Login SuccessFull", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginPage.this,HomePage.class);
+                    startActivity(intent);
+                }
+                else
+                {
+                    Toast.makeText(LoginPage.this, "Login Failed", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserInfo> call, Throwable t) {
+
+                Toast.makeText(LoginPage.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 }

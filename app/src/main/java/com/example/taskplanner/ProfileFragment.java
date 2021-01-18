@@ -2,7 +2,6 @@ package com.example.taskplanner;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.taskplanner.api_interfaces.JsonPlaceHolderApi;
+import com.example.taskplanner.models.UserInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,11 +28,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.auth.User;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -63,6 +70,11 @@ public class ProfileFragment  extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
+
+        getPosts();
+
+        /*
+
 
 
         db.collection("User Profile Information")
@@ -189,7 +201,42 @@ public class ProfileFragment  extends Fragment {
             }
         });
 
+         */
+
         return view;
+    }
+
+    public void getPosts()
+    {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:3000/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+        Call<List<UserInfo>> call = jsonPlaceHolderApi.getPosts();
+
+        call.enqueue(new Callback<List<UserInfo>>() {
+            @Override
+            public void onResponse(Call<List<UserInfo>> call, Response<List<UserInfo>> response) {
+
+
+                List<UserInfo> posts = response.body();
+
+                for (UserInfo post:posts)
+                {
+                    email.setText(post.getEmail());
+                    name.setText(post.getPassword());
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<UserInfo>> call, Throwable t) {
+
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

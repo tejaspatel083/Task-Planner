@@ -1,24 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.taskplanner">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".ForgotPasswordPage"
-            android:label="Forgot Password"></activity>
-        <activity android:name=".TaskDetails"
-            android:label="Task Details"/>
-        <activity android:name=".AddTaskPage"
-            android:label="Add Task"/>
-        <activity android:name=".HomePage"
-            android:label="Home"/>
-        <activity android:name=".CreateAccountPage"
-            android:label="Create Account"/>
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <activity
+            android:name=".ForgotPasswordPage"
+            android:label="Forgot Password" />
+        <activity
+            android:name=".TaskDetails"
+            android:label="Task Details" />
+        <activity
+            android:name=".AddTaskPage"
+            android:label="Add Task" />
+        <activity
+            android:name=".HomePage"
+            android:label="Home" />
+        <activity
+            android:name=".CreateAccountPage"
+            android:label="Create Account" />
         <activity android:name=".LoginPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

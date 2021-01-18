@@ -1,24 +1,19 @@
-package com.example.taskplanner;
+package com.example.taskplanner.models;
 
-class TaskInfo {
+public class TaskInfo {
 
-    String title;
-    String date;
-    String note;
+    private String title;
+    private String date;
+    private String note;
 
-    public TaskInfo() {
+    public TaskInfo(String title) {
+        this.title = title;
     }
-
 
     public TaskInfo(String title, String date, String note) {
         this.title = title;
         this.date = date;
         this.note = note;
-    }
-
-    public TaskInfo(String title, String date) {
-        this.title = title;
-        this.date = date;
     }
 
     public String getTitle() {

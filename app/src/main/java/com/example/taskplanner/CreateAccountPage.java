@@ -21,22 +21,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.taskplanner.api_interfaces.JsonPlaceHolderApi;
+import com.example.taskplanner.models.UserInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.auth.User;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
 
 import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class CreateAccountPage extends AppCompatActivity {
 
@@ -154,6 +160,8 @@ public class CreateAccountPage extends AppCompatActivity {
             }
         });
 
+
+
         Createbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,9 +174,8 @@ public class CreateAccountPage extends AppCompatActivity {
                 }
                 else if (user_pwd1.getText().toString().trim().equals(user_pwd2.getText().toString().trim()))
                 {
-                    String name = user_name.getText().toString().trim();
-                    String email=user_email.getText().toString().trim();
-                    String password = user_pwd1.getText().toString().trim();
+                    createPost();
+                    /*
 
 
                     firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -202,6 +209,8 @@ public class CreateAccountPage extends AppCompatActivity {
 
 
                     });
+
+                     */
                 }
                 else
                 {
@@ -226,7 +235,7 @@ public class CreateAccountPage extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful())
                     {
-                        sendData();
+                        //sendData();
                         firebaseAuth.signOut();
                         finish();
 
@@ -289,6 +298,8 @@ public class CreateAccountPage extends AppCompatActivity {
 
 
 
+
+
         String name = user_name.getText().toString().trim();
         String email = user_email.getText().toString().trim();
 
@@ -310,6 +321,55 @@ public class CreateAccountPage extends AppCompatActivity {
                     }
                 });
 
+
+
+
+
+    }
+
+    void createPost()
+    {
+        String email = user_email.getText().toString().trim();
+        String password = user_pwd1.getText().toString().trim();
+        
+        UserInfo userInfo = new UserInfo(email,password);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(userInfo);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:3000/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
+        Call<UserInfo> call = jsonPlaceHolderApi.createPost(userInfo);
+
+
+
+        call.enqueue(new Callback<UserInfo>() {
+            @Override
+            public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
+
+                Toast toast = Toast.makeText(CreateAccountPage.this,"Registration Completed.",Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
+
+                startActivity(new Intent(CreateAccountPage.this,LoginPage.class));
+
+
+            }
+
+            @Override
+            public void onFailure(Call<UserInfo> call, Throwable t) {
+
+                Toast toast = Toast.makeText(CreateAccountPage.this,t.getMessage(),Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
+
+            }
+        });
 
 
     }

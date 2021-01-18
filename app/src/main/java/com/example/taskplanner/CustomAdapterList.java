@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.taskplanner.models.TaskInfo;
+
 import java.util.ArrayList;
 
 public class CustomAdapterList extends BaseAdapter {
